@@ -46,7 +46,7 @@ requirements =
     plyer,\
     pillow,\
     pyjnius,\
-    Cython,\
+    Cython==3.0.5,\
     https://github.com/kivymd/KivyMD/archive/master.zip,\
     materialyoucolor,\
     exceptiongroup,\
