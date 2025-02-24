@@ -31,7 +31,6 @@ jobs:
       # Configure Buildozer with ARM64 flags
       - name: Configure buildozer.spec
         run: |
-          echo "android.ndk = 23b" >> buildozer.spec
           echo "android.p4a_branch = 2023.11.11" >> buildozer.spec
           sed -i '/^requirements = /a \    --no-binary=kivy,' buildozer.spec
 
