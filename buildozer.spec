@@ -38,7 +38,7 @@ version = 2.0
 # (list) Application requirements
 requirements = 
     python3,\
-    kivy,\
+    kivy==2.3.1,\
     opencv-python-headless,\
     numpy,\
     mediapipe,\
@@ -136,7 +136,7 @@ android.minapi = 21
 #android.sdk = 33
 
 # (str) Android NDK version to use
-android.ndk = 25
+android.ndk = 23b
 
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
