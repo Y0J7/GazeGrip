@@ -47,7 +47,6 @@ requirements =
     pillow,\
     pyjnius,\
     Cython,\
-    kivy.clock,\
     https://github.com/kivymd/KivyMD/archive/master.zip,\
     materialyoucolor,\
     exceptiongroup,\
