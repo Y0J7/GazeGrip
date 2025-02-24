@@ -39,6 +39,7 @@ version = 2.0
 requirements = 
     python3,\
     kivy==2.3.1,\
+    kivymd,\
     opencv-python,\
     numpy,\
     mediapipe,\
