@@ -38,8 +38,8 @@ version = 2.0
 # (list) Application requirements
 requirements = 
     python3,\
-    kivy==2.3.1,\
-    opencv-python-headless,\
+    --no-binary=kivy,\
+    opencv-python,\
     numpy,\
     mediapipe,\
     requests,\
