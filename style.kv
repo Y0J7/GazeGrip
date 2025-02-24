@@ -1,0 +1,159 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Factory kivy.factory.Factory
+
+<ModernButton@Button>:
+    background_normal: ''
+    background_color: get_color_from_hex('#2196F3')
+    color: 1, 1, 1, 1
+    size_hint: (0.5, 0.15)
+    pos_hint: {'center_x': 0.5}
+    font_size: '18sp'
+    canvas.before:
+        Color:
+            rgba: get_color_from_hex('#1976D2') if self.state == 'normal' else get_color_from_hex('#1565C0')
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10, 10, 10, 10]
+
+<SettingsInput@TextInput>:
+    multiline: False
+    size_hint: (0.3, None)
+    height: '40dp'
+    background_normal: ''
+    background_active: ''
+    background_color: get_color_from_hex('#E3F2FD')
+    foreground_color: get_color_from_hex('#212121')
+    cursor_color: get_color_from_hex('#2196F3')
+    padding: [10, 10, 10, 10]
+
+<WelcomeScreen>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#FFFFFF')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 50
+            spacing: 30
+            
+            Label:
+                text: 'Eye-Controlled Keyboard'
+                font_size: '40sp'
+                color: get_color_from_hex('#000000')  # Changed to black
+                bold: True
+                size_hint_y: 0.3
+            
+            Label:
+                text: 'Control your keyboard with eye movements'
+                font_size: '20sp'
+                color: get_color_from_hex('#000000')  # Changed to black
+                size_hint_y: 0.2
+            
+            ModernButton:
+                text: 'Start Application'
+                on_press: root.go_to_main()
+            
+            ModernButton:
+                text: 'Settings'
+                background_color: get_color_from_hex('#4CAF50')
+                on_press: root.go_to_settings()
+
+<SettingsScreen>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: get_color_from_hex('#FFFFFF')
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30
+            spacing: 20
+            
+            Label:
+                text: 'Settings'
+                font_size: '32sp'
+                color: get_color_from_hex('#000000')  # Changed to black
+                bold: True
+                size_hint_y: 0.2
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: 'Blink Threshold (3.0-8.0):'
+                    color: get_color_from_hex('#000000')  # Changed to black
+                SettingsInput:
+                    id: blink_input
+                    text: '5.7'
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: 'Cursor Speed (0-100):'  # Updated range in label
+                    color: get_color_from_hex('#000000')  # Changed to black
+                SettingsInput:
+                    id: speed_input
+                    text: '60'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: 'Left Ratio (0.0-1.0):'
+                    color: get_color_from_hex('#000000')  # Changed to black
+                SettingsInput:
+                    id: left_ratio_input
+                    text: '0.45'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: 'Right Ratio (0.0-1.0):'
+                    color: get_color_from_hex('#000000')  # Changed to black
+                SettingsInput:
+                    id: right_ratio_input
+                    text: '0.65'
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: 'Camera Index (0-9):'
+                    color: get_color_from_hex('#757575')  # Gray color for labels
+                SettingsInput:
+                    id: camera_input
+                    text: '0'
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.2
+                Label:
+                    text: 'Camera:'
+                    color: get_color_from_hex('#000000')  # Changed to black
+                ModernButton:
+                    id: camera_toggle
+                    text: 'Front Camera' if root.is_front_camera else 'Back Camera'
+                    background_color: get_color_from_hex('#2196F3') if root.is_front_camera else get_color_from_hex('#FF5722')
+                    size_hint: (0.3, None)
+                    height: '40dp'
+                    on_press: root.toggle_camera()
+            
+            ModernButton:
+                text: 'Apply Settings'
+                background_color: get_color_from_hex('#4CAF50')
+                on_press: root.apply_settings()
+            
+            ModernButton:
+                text: 'Back'
+                background_color: get_color_from_hex('#FF5722')
+                on_press: root.go_back()
