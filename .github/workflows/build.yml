@@ -1,3 +1,5 @@
+name: Build APK
+
 on:
   push:
     branches: [ main ]
@@ -7,11 +9,48 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+
+      # Add QEMU for ARM64 emulation
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      # Install ARM64 build dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+              python3-pip \
+              build-essential \
+              zlib1g-dev \
+              libncurses5-dev \
+              libffi-dev \
+              gcc-aarch64-linux-gnu  # ARM64 cross-compiler
+
+      # Configure Buildozer with ARM64 flags
+      - name: Configure buildozer.spec
+        run: |
+          echo "android.ndk = 23b" >> buildozer.spec
+          echo "android.p4a_branch = 2023.11.11" >> buildozer.spec
+          sed -i '/^requirements = /a \    --no-binary=kivy,' buildozer.spec
+
+      # Clean previous builds
+      - name: Clean build artifacts
+        run: |
+          buildozer android clean
+          rm -rf .buildozer
+
+      # Build with ARM64 flags
       - name: Build APK
         uses: digreatbrian/buildozer-action@v2
         with:
           python-version: 3.8
-          buildozer-cmd: buildozer -v android debug
+          buildozer-cmd: |
+            buildozer -v android debug \
+              -- \
+              --arch arm64-v8a \
+              --ndk-version 23b
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
