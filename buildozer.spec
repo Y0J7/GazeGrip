@@ -38,7 +38,7 @@ version = 2.0
 # (list) Application requirements
 requirements = 
     python3,\
-    --no-binary=kivy,\
+    kivy==2.3.1,\
     opencv-python,\
     numpy,\
     mediapipe,\
@@ -46,7 +46,7 @@ requirements =
     plyer,\
     pillow,\
     pyjnius,\
-    Cython==3.0.5,\
+    Cython,\
     https://github.com/kivymd/KivyMD/archive/master.zip,\
     materialyoucolor,\
     exceptiongroup,\
