@@ -35,23 +35,18 @@ version = 2.0
 # version.regex = __version__ = ['"](.*)['"]
 # version.filename = %(source.dir)s/main.py
 
-# (list) Application requirements
+# (list) Application requirements - Update package versions and remove problematic ones
 requirements = 
     python3,\
     kivy==2.3.1,\
-    opencv-python,\
-    numpy,\
-    mediapipe,\
-    requests,\
-    plyer,\
-    pillow,\
-    pyjnius,\
-    Cython==0.29.36,\
-    https://github.com/kivymd/KivyMD/archive/master.zip,\
-    materialyoucolor,\
-    exceptiongroup,\
-    asyncgui,\
-    asynckivy
+    opencv-contrib-python==4.8.1.78,\
+    numpy==1.26.3,\
+    mediapipe-silicon==0.10.9,\
+    requests==2.31.0,\
+    plyer==2.1.0,\
+    pillow==10.2.0,\
+    pyjnius==1.6.1,\
+    Cython==0.29.36
 
 # (str) CustomCython==0.29.36 source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -139,6 +134,11 @@ android.ndk = 25b  # Use specific NDK version
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 android.ndk_api = 21
+
+# (bool) Use --private data storage (True) or --dir public storage (False)
+#android.private_storage = True
+
+# (str) Android NDK directory (if empty, it will be automatically downloaded.)
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
 #android.private_storage = True
