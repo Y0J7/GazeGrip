@@ -1,5 +1,8 @@
+name: Build APK
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -7,14 +10,39 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Build APK
-        uses: digreatbrian/buildozer-action@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.8
-          buildozer-cmd: buildozer -v android debug
+          python-version: '3.8'
+          cache: 'pip'
+          
+      - name: Cache Buildozer global directory
+        uses: actions/cache@v4
+        with:
+          path: .buildozer_global
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+          pip3 install --user --upgrade Cython==0.29.36 buildozer
+          
+      - name: Download Android NDK
+        run: |
+          mkdir -p $HOME/.buildozer/android/platform/
+          wget -q https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+          unzip -q android-ndk-r25b-linux.zip -d $HOME/.buildozer/android/platform/
+          mv $HOME/.buildozer/android/platform/android-ndk-r25b $HOME/.buildozer/android/platform/android-ndk
+          rm android-ndk-r25b-linux.zip
+
+      - name: Build with Buildozer
+        run: |
+          buildozer android debug
+        
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: ./bin/*.apk
+          path: bin/*.apk
