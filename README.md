@@ -56,7 +56,7 @@ Upon launching the application:
 
 Here’s a preview of the **GazeGrip** application:
 
-![GazeGrip Thumbnail](./assets/images/ChatGPT Image May 4, 2025, 06_10_49 PM.png)
+![GazeGrip Thumbnail](./assets/images/thumbnail.png)
 
 ## Contributing
 
