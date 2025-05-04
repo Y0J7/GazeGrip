@@ -52,6 +52,12 @@ Upon launching the application:
 3. Your gaze will control the mouse cursor within the application window.
 4. Adjust settings as needed to fine-tune responsiveness.
 
+## Thumbnail
+
+Here’s a preview of the **GazeGrip** application:
+
+![GazeGrip Thumbnail](./assets/images/ChatGPT Image May 4, 2025, 06_10_49 PM.png)
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
